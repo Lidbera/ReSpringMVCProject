@@ -72,8 +72,6 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
-
-	//
 	
 	@PostMapping("member/modify")
 	public String updateMember(@ModelAttribute String id, Model model) {

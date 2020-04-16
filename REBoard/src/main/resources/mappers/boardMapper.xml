@@ -4,14 +4,15 @@
 
 <mapper namespace="board">
 	<insert id="insert" parameterType="boardVO">
-		INSERT INTO board(index, title, content, writer_name, writer_id) 
+		INSERT INTO board(id, title, content, writer_name, writer_id) 
 		VALUES (seq_board.nextval, #{title}, #{content}, #{writer_name}, #{writer_id})
 	</insert>
     
 	<select id="select_list" parameterType="hashmap" resultMap="boardrsm">
 		<![CDATA[
-		SELECT * FROM (SELECT ROWNUM AS rownumber, b.* FROM board b) a 
-		WHERE a.rownumber >= #{index} AND a.rownumber <= #{index} + 9 ORDER BY id DESC
+		SELECT * FROM (SELECT /*+index_desc(board SYS_C007045)*/
+		ROWNUM AS rownumber, id, title, content, writer_name, writer_id, datetime FROM board) a
+		WHERE a.rownumber <= #{index}*#{amount} AND a.rownumber > (#{index}-1)*#{amount}
 		]]>
 	</select>
 	

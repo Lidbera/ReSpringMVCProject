@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,8 +31,8 @@ public class BoardController {
 		return "board/boardPage_write";
 	}
 	
-	@PostMapping(value = "board/write", params = {"vo"})
-	public String insert(BoardVO vo, Model model) {
+	@PostMapping("board/write/new")
+	public String insert(@ModelAttribute BoardVO vo, Model model) {
 		try{
 			svc.write(vo);
 			model.addAttribute("wricheck", true);
@@ -43,7 +44,7 @@ public class BoardController {
 		return "board/boardPage";
 	}
 	
-	@GetMapping(value = "board/{index:[\\d]+}")
+	@GetMapping("board/{index:[\\d]+}")
 	public String board_one(@PathVariable int index) {
 		Log.info("boardPage_one called: index=" + index);
 		return "board/boardPage_one";
@@ -61,8 +62,8 @@ public class BoardController {
 		}
 	}
 	
-	@PostMapping("board/modify")
-	public String modifyPage(int index, Model model) {
+	@GetMapping("board/modify/{index:[\\d]+}")
+	public String modifyPage(@PathVariable int index, Model model) {
 		BoardVO boardDTO = svc.select(index);
 		model.addAttribute("board", boardDTO);
 		return "board/board_modify";
@@ -70,11 +71,10 @@ public class BoardController {
 	
 	//
 	
-	@GetMapping("board/modify")
-	public String modify(BoardVO vo, Model model) {
+	@PostMapping("board/update")
+	public String modify(BoardVO vo) {
 		svc.modify(vo);
-		model.addAttribute("index", vo.getIndex());
-		return "board/boardPage_one";
+		return "board/boardPage";
 	}
 	
 	@GetMapping("board/boardList")

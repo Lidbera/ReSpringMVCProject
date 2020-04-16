@@ -17,17 +17,18 @@
 				var id = "${id}";
 				var name = "${name}";
 				$.ajax({
-					url: "board/write",
+					url: "/prac/board/write/new",
 					data: {
 						writer_id:id,
 						writer_name:name,
 						title:title,
 						content:content
 						},
+					type: "post",
 					success:function(res){
 						var wricheck = $("#wricheck");
 						if(wricheck.length == 1){
-							location.href="board.jsp";
+							location.href="/prac/board";
 						}else{
 							wricheck.html(res);
 						}

@@ -66,7 +66,7 @@
 			})
 		})
 		function modboard(title, content) {
-			location.href="board/modify?index=" + index;
+			location.href="/prac/board/modify/" + index;
 		}
 		function delreply(num) {
 			if(!confirm("정말 삭제하시겠습니까?")){
@@ -137,7 +137,7 @@
 					<textarea id="con" style="resize: none; overflow: hidden; overflow-wrap: break-word;" class="form-control"></textarea>
 				</div>
 				<div>
-					<button type="button" id="replybtn" class="btn btn-dark float-right">등록</button>
+					<input type="submit" id="replybtn" class="btn btn-dark float-right" value="등록">
 				</div>
 			</c:if>
 		</div>

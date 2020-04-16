@@ -10,15 +10,17 @@
 		$(function() {
 			$("#title").val("${board.title}");
 			$("#con").val("${board.content}");
-			$("#writebtn").click(function() {
+			
+			$("#bmodiform").submit(function(){
 				var title_mod = $("#title").val();
 				var content_mod = $("#con").val();
 				if(title.length < 1 || content.length < 1){
 					alert("제목 혹은 내용이 없습니다.");
-					return;
+					return false;
 				}
-				location.href = "board_modify?index=${board.index}&title=" + title_mod + "&content=" + content_mod;
-			})
+				return true;
+			});
+			
 			$("#con").keydown(function() {
 				var cont = $("#con").val();
 				console.log(cont);
@@ -37,28 +39,33 @@
 		
 		<c:if test="${board.writer_name eq name}">
 			<div id="content" class="jumbotron">
-				<table class="table table-white">
-					<tr>
-						<th>제목</th>
-						<td>
-							<input id="title" placeholder="제목을 입력해주세요." tabindex="1" class="form-control">
-						</td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td>
-							<textarea id="con" tabindex="2" rows="10" cols="10" placeholder="내용을 입력해주세요." class="form-control"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div id="wricheck">
-							</div>
-							<input type="button" id="backbtn" value="뒤로" class="btn btn-dark">
-							<input type="button" id="writebtn" value="등록" class="btn btn-dark float-right">
-						</td>
-					</tr>
-				</table>
+				<form id="bmodiform" action="/prac/board/update" method="post">
+					<input type="hidden" name="index" value="${index}">
+					<input type="hidden" name="writer_id" value="${id}">
+					<input type="hidden" name="writer_name" value="${name}">
+					<table class="table table-white">
+						<tr>
+							<th>제목</th>
+							<td>
+								<input id="title" name="title" placeholder="제목을 입력해주세요." tabindex="1" class="form-control">
+							</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td>
+								<textarea id="con" name="content" tabindex="2" rows="10" cols="10" placeholder="내용을 입력해주세요." class="form-control"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div id="wricheck">
+								</div>
+								<input type="button" id="backbtn" value="뒤로" class="btn btn-dark">
+								<input type="submit" id="writebtn" value="등록" class="btn btn-dark float-right">
+							</td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</c:if>
 		<c:if test="${board.writer_name ne name}">
