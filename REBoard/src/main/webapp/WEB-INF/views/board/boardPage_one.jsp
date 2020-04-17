@@ -63,7 +63,7 @@
 				})
 			})
 			$("#writebtn").click(function() {
-				location.href="board_write.jsp";
+				location.href="/prac/board/write";
 			})
 		})
 		function modboard(title, content) {

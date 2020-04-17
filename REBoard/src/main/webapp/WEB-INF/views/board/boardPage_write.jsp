@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,37 +8,18 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$("#writebtn").click(function() {
+			$("#backbtn").click(function() {
+				window.history.back();
+			})
+			$("#regiform").submit(function(){
 				var title = $("#title").val();
 				var content = $("#con").val();
 				if(title.length < 1 || content.length < 1){
 					alert("제목 혹은 내용이 없습니다.");
-					return;
+					return false;
 				}
-				var id = "${id}";
-				var name = "${name}";
-				$.ajax({
-					url: "/prac/board/write/new",
-					data: {
-						writer_id:id,
-						writer_name:name,
-						title:title,
-						content:content
-						},
-					type: "post",
-					success:function(res){
-						var wricheck = $("#wricheck");
-						if(wricheck.length == 1){
-							location.href="/prac/board";
-						}else{
-							wricheck.html(res);
-						}
-					}
-				})
-			})
-			$("#backbtn").click(function() {
-				window.history.back();
-			})	
+				return true;
+			});
 		})
 	</script>
 </head>
@@ -48,28 +30,39 @@
 		</div>
 		
 		<div id="content" class="jumbotron">
-			<table class="table table-white">
-				<tr>
-					<th>제목</th>
-					<td>
-						<input id="title" placeholder="제목을 입력해주세요." tabindex="1" class="form-control">
-					</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td>
-						<textarea id="con" tabindex="2" rows="10" cols="10" placeholder="내용을 입력해주세요." class="form-control"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div id="wricheck">
-						</div>
-						<input type="button" id="backbtn" value="뒤로" class="btn btn-dark">
-						<input type="button" id="writebtn" value="등록" class="btn btn-dark float-right">
-					</td>
-				</tr>
-			</table>
+			<form id="wriform" action="/prac/board/write/new" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="writer_id" value="${id}">
+				<input type="hidden" name="writer_name" value="${name}">
+				<table class="table table-white">
+					<tr>
+						<th>제목</th>
+						<td>
+							<input name="title" placeholder="제목을 입력해주세요." tabindex="1" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td>
+							<textarea name="content" tabindex="2" rows="10" cols="10" placeholder="내용을 입력해주세요." class="form-control"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>파일</th>
+						<td>
+							<div id="imgfile"></div>
+							<input type="file" name="uploadfile" multiple="multiple">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div id="wricheck">
+							</div>
+							<input type="button" id="backbtn" value="뒤로" class="btn btn-dark">
+							<input type="submit" value="등록" class="btn btn-dark float-right">
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
 </body>

@@ -5,6 +5,9 @@
 	<h2 id="board_title">${vo.title}</h2>
 	<hr color="gray">
 	<div id="board_content">${vo.content}</div>
+	<c:if test="${vo.filename not eq null}">
+		<br><img src="${pageContext.request.contextPath}${vo.filename}">
+	</c:if>
 	
 	<c:if test="${name eq vo.writer_name}">
 		<div id="post_modbtn">
