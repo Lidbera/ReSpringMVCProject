@@ -29,7 +29,7 @@
 			})
 			.done(function() {
 				$.ajax({
-					url:"reply_list",
+					url:"/prac/reply/list",
 					data: {boardindex:index},
 					success:function(res) {
 						$("#comment").html(res);
@@ -49,7 +49,8 @@
 				}
 				var writer = "${name}";
 				$.ajax({
-					url:"reply_write",
+					url:"/prac/reply/write",
+					type: "post",
 					data: {
 							boardindex:index,
 							writer:writer,
@@ -66,7 +67,8 @@
 			})
 		})
 		function modboard(title, content) {
-			location.href="/prac/board/modify/" + index;
+			$("#mopform").submit();
+			
 		}
 		function delreply(num) {
 			if(!confirm("정말 삭제하시겠습니까?")){
@@ -74,7 +76,8 @@
 			}
 			var writer = "${name}";
 			$.ajax({
-				url:"reply_delete",
+				url:"/prac/reply/delete",
+				type: "post",
 				data: {
 					boardindex:index,
 					num:num,
@@ -104,14 +107,15 @@
 		function modreply_ok(num){
 			var content = $("#rcon").val();
 			$.ajax({
-				url:"reply_modify",
+				url:"/prac/reply/modify",
+				type: "post",
 				data: {
 					boardindex:index,
 					num:num,
 					content:content
 					},
-				success:function(res) {
-					$("#reply" + num + "_con").html(res);
+				success:function() {
+					$("#reply" + num + "_con").html(content);
 					$("#reply" + num + "_mod").html("수정");
 					$("#reply" + num + "_mod").attr("onclick", "modreply(" + num + ")");
 					$("#reply" + num + "_rem").html("삭제");
@@ -122,6 +126,9 @@
 	</script>
 </head>
 <body>
+	<form id="mopform" action="/prac/board/modify" method="post">
+		<input type="hidden" name="index" value="${index}">
+	</form>
 	<div>
 		<div id="top">
 			<jsp:include page="../../views/main/top.jsp"></jsp:include>

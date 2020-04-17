@@ -40,7 +40,7 @@
 		<c:if test="${board.writer_name eq name}">
 			<div id="content" class="jumbotron">
 				<form id="bmodiform" action="/prac/board/update" method="post">
-					<input type="hidden" name="index" value="${index}">
+					<input type="hidden" name="index" value="${board.index}">
 					<input type="hidden" name="writer_id" value="${id}">
 					<input type="hidden" name="writer_name" value="${name}">
 					<table class="table table-white">

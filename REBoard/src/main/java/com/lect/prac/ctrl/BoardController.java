@@ -46,13 +46,11 @@ public class BoardController {
 	
 	@GetMapping("board/{index:[\\d]+}")
 	public String board_one(@PathVariable int index) {
-		Log.info("boardPage_one called: index=" + index);
 		return "board/boardPage_one";
 	}
 	
 	@PostMapping("board/select")
 	public String select(int index, Model model) {
-		Log.info("select index: " + index);
 		BoardVO vo = svc.select(index);
 		if(vo == null) {
 			return "board/board_select_fail";
@@ -62,8 +60,8 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("board/modify/{index:[\\d]+}")
-	public String modifyPage(@PathVariable int index, Model model) {
+	@PostMapping("board/modify")
+	public String modifyPage(int index, Model model) {
 		BoardVO boardDTO = svc.select(index);
 		model.addAttribute("board", boardDTO);
 		return "board/board_modify";

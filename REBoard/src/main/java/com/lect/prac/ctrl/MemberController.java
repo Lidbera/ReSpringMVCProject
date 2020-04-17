@@ -43,7 +43,6 @@ public class MemberController {
 
 	@PostMapping("member/insert")
 	public String insert(@ModelAttribute MemberVO vo, Model model) {
-		Log.info("insertMember called");
 		try {
 			svc.register(vo);
 		} catch (Exception e) {
@@ -57,7 +56,6 @@ public class MemberController {
 
 	@GetMapping("member/check")
 	public String selectOne(String id, Model model) {
-		Log.info("checkMember called");
 		MemberVO vo = svc.select(id);
 		if (vo == null) {
 			model.addAttribute("regiidcheck", true);
