@@ -10,9 +10,10 @@
     
 	<select id="select_list" parameterType="hashmap" resultMap="boardrsm">
 		<![CDATA[
-		SELECT * FROM (SELECT /*+index_desc(board SYS_C007045)*/
-		ROWNUM AS rownumber, id, title, content, writer_name, writer_id, datetime FROM board) a
-		WHERE a.rownumber <= #{index}*#{amount} AND a.rownumber > (#{index}-1)*#{amount}
+		SELECT * FROM
+		(SELECT ROWNUM rn, b.* FROM
+		(SELECT * FROM board ORDER BY id DESC) b)
+		WHERE rn <= #{index}*#{amount} AND rn > (#{index}-1)*#{amount}
 		]]>
 	</select>
 	
