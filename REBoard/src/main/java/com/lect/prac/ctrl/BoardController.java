@@ -36,21 +36,26 @@ public class BoardController {
 	public String boardWrite() {
 		return "board/boardPage_write";
 	}
+	
+	@PostMapping("board/remove")
+	public String boardRemove(int index) {
+		svc.remove(index);
+		return "reply/null";
+	}
 
 	@PostMapping("board/write/new")
 	public String insert(@ModelAttribute BoardVO vo, @RequestParam("uploadfile") MultipartFile file, Model model) {
-		String url = null;
+		String filename = null;
 		try {
-			url = uploadsvc.upload(file);
-			vo.setFilename(url);
+			filename = uploadsvc.upload(file);
+			vo.setFilename(filename);
 			svc.write(vo);
-		} catch (Exception e2) {
-			Log.info(String.format("board_write_error: id(%s), filename(%s)", vo.getWriter_id(), url));
-			return "redirect:/board";
+		} catch (Exception e) {
+			Log.info(String.format("board_write_error: id(%s), filename(%s)", vo.getWriter_id(), filename));
 		}
 		List<BoardVO> list = svc.selectList(1);
 		model.addAttribute("list", list);
-		return "board/boardPage";
+		return "redirect:/board";
 	}
 
 	@GetMapping("board/{index:[\\d]+}")

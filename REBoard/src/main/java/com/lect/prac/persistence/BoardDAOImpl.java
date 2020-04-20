@@ -20,6 +20,11 @@ public class BoardDAOImpl implements BoardDAO {
 	SqlSession sql;
 
 	@Override
+	public void delete(int index) {
+		sql.delete(mapper + "remove", index);
+	}
+
+	@Override
 	public void insert(BoardVO vo) {
 		Log.info(vo.getIndex() + ", " +  vo.getTitle() + ", " + vo.getContent() + ", " + vo.getWriter_id() + ", " + vo.getWriter_name() + ", " + vo.getDatetime());
 		sql.insert(mapper + "insert", vo);

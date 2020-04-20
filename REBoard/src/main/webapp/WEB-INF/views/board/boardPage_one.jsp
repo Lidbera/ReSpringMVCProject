@@ -68,7 +68,18 @@
 		})
 		function modboard(title, content) {
 			$("#mopform").submit();
-			
+		}
+		function remboard() {
+			index = "${index}";
+			$.ajax({
+				type: "post",
+				url: "/prac/board/remove",
+				data: {index:index},
+				success:function(){
+					alert("게시글을 삭제했습니다.");
+					location.href="/prac/board";
+				}
+			})
 		}
 		function delreply(num) {
 			if(!confirm("정말 삭제하시겠습니까?")){

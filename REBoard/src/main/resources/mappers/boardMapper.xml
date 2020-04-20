@@ -28,6 +28,10 @@
 		UPDATE board SET title=#{title}, content=#{content}, datetime=SYSDATE WHERE id=#{index}
 	</update>
 	
+	<delete id="remove" parameterType="int">
+		DELETE FROM board WHERE id=#{index}
+	</delete>
+	
 	<resultMap type="boardVO" id="boardrsm">
 		<result property="index" column="id"/>
 		<result property="title" column="title"/>

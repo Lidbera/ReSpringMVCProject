@@ -21,6 +21,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public void remove(int index) {
+		dao.delete(index);
+	}
+
+	@Override
 	public List<BoardVO> selectList(int num) {
 		return dao.selectList(num);
 	}

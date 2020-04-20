@@ -20,11 +20,6 @@
 				}
 				return true;
 			});
-			
-			$("#con").keydown(function() {
-				var cont = $("#con").val();
-				console.log(cont);
-			})
 			$("#backbtn").click(function() {
 				window.history.back();
 			})
@@ -37,7 +32,7 @@
 			<jsp:include page="../../views/main/top.jsp"></jsp:include>
 		</div>
 		
-		<c:if test="${board.writer_name eq name}">
+		<c:if test="${board.writer_id eq id}">
 			<div id="content" class="jumbotron">
 				<form id="bmodiform" action="/prac/board/update" method="post">
 					<input type="hidden" name="index" value="${board.index}">
@@ -68,7 +63,7 @@
 				</form>
 			</div>
 		</c:if>
-		<c:if test="${board.writer_name ne name}">
+		<c:if test="${board.writer_id ne id}">
 			<font color=red>잘못된 접근입니다.</font>
 		</c:if>
 	</div>

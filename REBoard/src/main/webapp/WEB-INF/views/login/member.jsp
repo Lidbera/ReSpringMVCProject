@@ -25,11 +25,9 @@
 				if(pw.length < 8){
 					_pwcheck.html("<font color=red>비밀번호는 8자 이상이어야 합니다.</font>");
 					errDisplay(_pwcheck);
-					console.log("1 false");
 					return false;
 				}else{
 					_pwcheck.html("");
-					console.log("1 true");
 					return true;
 				}
 			}
@@ -43,12 +41,10 @@
 				}
 				if(pw == pwr){
 					pwcheck.html("<font color=green>비밀번호가 일치합니다.</font>");
-					console.log("2 true");
 					return true;
 				}else{
 					pwcheck.html("<font color=red>비밀번호가 일치하지 않습니다.</font>");
 					errDisplay(pwcheck);
-					console.log("2 false");
 					return false;
 				}
 			}
@@ -76,7 +72,6 @@
 			
 			$("#memform").submit(function(){
 				if(pwcheck() && namecheck()){
-					console.log("all checked");
 					return true;
 				}
 				else return false;

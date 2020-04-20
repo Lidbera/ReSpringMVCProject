@@ -5,13 +5,17 @@
 	<h2 id="board_title">${vo.title}</h2>
 	<hr color="gray">
 	<div id="board_content">${vo.content}</div>
-	<c:if test="${vo.filename not eq null}">
-		<br><img src="${pageContext.request.contextPath}${vo.filename}">
+	<c:if test="${vo.filename ne '/upload/null'}">
+		<br><img src="${pageContext.request.contextPath}${vo.filename}"
+			width="300" height="300"><br>
 	</c:if>
 	
-	<c:if test="${name eq vo.writer_name}">
+	<c:if test="${id eq vo.writer_id}">
 		<div id="post_modbtn">
 			<button type='button' onclick='modboard("${vo.title}", "${vo.content}")' class="btn btn-dark float-right">수정</button>
+		</div>
+		<div id="post_rembtn">
+			<button type='button' onclick='remboard()' class="btn btn-dark float-right">삭제</button>
 		</div>
 	</c:if>
 </div>

@@ -10,4 +10,5 @@ public interface BoardDAO {
 	public BoardVO select(int index);
 	public int count();
 	public void update(BoardVO vo);
+	public void delete(int index);
 }

@@ -10,4 +10,5 @@ public interface BoardService {
 	public BoardVO select(int index);
 	public int count();
 	public void modify(BoardVO vo);
+	public void remove(int index);
 }

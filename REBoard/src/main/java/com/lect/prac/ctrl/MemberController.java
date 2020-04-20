@@ -79,12 +79,14 @@ public class MemberController {
 	}
 
 	@PostMapping("member/update")
-	public String update(@ModelAttribute MemberVO vo, Model model) {
+	public String update(@ModelAttribute MemberVO vo, Model model, HttpSession session) {
 		try {
 			svc.modify(vo);
 		} catch (Exception e) {
 			model.addAttribute("memcheck", false);
 		}
+		session.setAttribute("id", vo.getId());
+		session.setAttribute("name", vo.getName());
 		model.addAttribute("memcheck", true);
 		return "login/member";
 	}
