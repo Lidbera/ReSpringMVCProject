@@ -1,9 +1,11 @@
 package com.lect.prac.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import util.Log;
@@ -33,8 +35,10 @@ public class FileUploadService {
 		return name;
 	}
 	
-	void writeFile(MultipartFile file, String name) {		
+	void writeFile(MultipartFile file, String name) {
 		try {
+			File folder = new File(PATH);
+			if(!folder.exists()) folder.mkdir();
 			byte[] data = file.getBytes();
 			String path = PATH + name;
 			FileOutputStream fos = new FileOutputStream(path);

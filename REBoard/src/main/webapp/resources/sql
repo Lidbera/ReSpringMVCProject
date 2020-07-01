@@ -8,6 +8,8 @@ CREATE TABLE board (
     filename VARCHAR(50)
 );
 
+ALTER TABLE board MODIFY(filename VARCHAR(50) DEFAULT '/upload/null');
+
 CREATE SEQUENCE seq_board;
 
 CREATE TABLE member (
